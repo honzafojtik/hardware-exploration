@@ -68,7 +68,7 @@
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "running_leds_two_pot_control_MCP3008_SN74HC595.kicad_prl",
+    "filename": "running-leds-w-sn74hc595-controlled-by-potmeters-with-mcp3008.kicad_prl",
     "version": 3
   },
   "project": {
