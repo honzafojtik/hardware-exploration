@@ -3,17 +3,15 @@
 
 const int MCP3008_CS_PIN = 10;
 
-con
-const int SN74HC595_SER_PIN = A0;
-const int SN74HC595_RCLK_PIN = A1;
-const int SN74HC595_SRCLK_PIN = A2;
+const int SN74HC595_SER_PIN = 16;
+const int SN74HC595_RCLK_CS_PIN = 9;
+const int SN74HC595_SRCLK_PIN = 15;
 const int SN74HC95_OE_PIN = 3;
 
 const byte START_BYTE = 1;
 const byte DIFFMODE = 128; 
 
-byte LED_PATTERN = 0;
-byte LED_PATTERN_SHIFT = 0;
+byte LED_PATTERN = 1;
 
 SPISettings mySettings(2000000, MSBFIRST, SPI_MODE0);
 
@@ -24,7 +22,7 @@ void setup()
 
   // SN74HC595 pin setup
   pinMode(SN74HC595_SER_PIN, OUTPUT);
-  pinMode(SN74HC595_RCLK_PIN, OUTPUT);
+  pinMode(SN74HC595_RCLK_CS_PIN, OUTPUT);
   pinMode(SN74HC595_SRCLK_PIN, OUTPUT);
   pinMode(SN74HC95_OE_PIN, OUTPUT);
 
@@ -39,7 +37,7 @@ void loop()
   byte bitPotChannel = 0;
   byte brightPotChannel = 2;
 
-  int bitPotValue = map(readPot(bitPotChannel), 0, 950, 0, 7);
+  int bitPotValue = map(readPot(bitPotChannel), 0, 1000, 0, 255);
   int brightPotValue = map(readPot(brightPotChannel), 0, 1023, 0, 255);
 
   Serial.print("BIT MAPPED: ");
@@ -51,13 +49,12 @@ void loop()
   Serial.println();
 
   setBrightness(brightPotValue);
-  LED_PATTERN = pow(2, bitPotValue);
+  // LED_PATTERN = pow(2, bitPotValue);
   // LED_PATTERN = bitPotValue;
-  for (int i = 0; i < 8; i++)
+  for (int i = 0; i < 255; i++)
   {
-    LED_PATTERN_SHIFT = LED_PATTERN << i;
-    updateShiftRegister(LED_PATTERN_SHIFT);
-    delay(100);
+    updateShiftRegister(i);
+    delay(50);
   }
 }
 
@@ -92,7 +89,13 @@ void setBrightness(byte brightness)
 
 void updateShiftRegister(byte pattern)
 {
-  digitalWrite(SN74HC595_RCLK_PIN, LOW);
-  shiftOut(SN74HC595_SER_PIN, SN74HC595_SRCLK_PIN, LSBFIRST, pattern);
-  digitalWrite(SN74HC595_RCLK_PIN, HIGH);
+  SPI.beginTransaction(mySettings);
+
+  digitalWrite(SN74HC595_RCLK_CS_PIN, LOW);
+
+  SPI.transfer(pattern);
+
+  digitalWrite(SN74HC595_RCLK_CS_PIN, HIGH);
+
+  SPI.endTransaction();
 }
