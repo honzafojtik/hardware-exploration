@@ -3,6 +3,7 @@
 
 const int MCP3008_CS_PIN = 10;
 
+con
 const int SN74HC595_SER_PIN = A0;
 const int SN74HC595_RCLK_PIN = A1;
 const int SN74HC595_SRCLK_PIN = A2;
