@@ -1,9 +1,9 @@
 (kicad_symbol_lib (version 20220914) (generator kicad_symbol_editor)
-  (symbol "pro-micro" (in_bom yes) (on_board yes)
+  (symbol "Pro_Micro" (in_bom yes) (on_board yes)
     (property "Reference" "MC" (at -10.16 20.32 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "Pro Micro" (at 6.35 20.32 0)
+    (property "Value" "" (at 0 20.32 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "" (at 0 20.32 0)
@@ -12,7 +12,12 @@
     (property "Datasheet" "" (at 0 20.32 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "pro-micro_1_1"
+    (symbol "Pro_Micro_1_0"
+      (text "Pro Micro" (at 6.35 20.32 0)
+        (effects (font (size 1.27 1.27) (color 0 100 100 1)))
+      )
+    )
+    (symbol "Pro_Micro_1_1"
       (rectangle (start -11.43 19.05) (end 11.43 -17.78)
         (stroke (width 0) (type default))
         (fill (type background))
