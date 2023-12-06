@@ -2,7 +2,6 @@ const byte buttonPin = 9;
 const byte ledPin = 8;
 
 volatile byte state = LOW;
-volatile byte previousButtonState = HIGH;
 
 void setup()
 {
