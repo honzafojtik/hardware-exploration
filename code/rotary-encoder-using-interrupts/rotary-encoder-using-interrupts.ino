@@ -2,7 +2,9 @@ const byte CLK = 9;
 const byte DT = 8;
 
 volatile byte state = LOW;
-byte prevState = LOW;
+volatile byte prevState = LOW;
+
+int counter = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -29,9 +31,13 @@ ISR(PCINT0_vect) {
 void handleRotaryEncoder() {
   if (digitalRead(CLK) == HIGH) {
     if (digitalRead(DT) == LOW) {
-      Serial.println("CW");
+      counter--;
+      Serial.print("CCW | ");
+      Serial.println(counter);
     } else {
-      Serial.println("CCW");
+      counter++;
+      Serial.print("CW  | ");
+      Serial.println(counter);
     }
   }
 }
