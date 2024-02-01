@@ -1,5 +1,5 @@
 const byte buttonPin = 9;
-const byte ledPin = 8;
+// const byte ledPin = 8;
 
 volatile byte state = LOW;
 
@@ -8,7 +8,7 @@ void setup()
   Serial.begin(9600);
 
   pinMode(buttonPin, INPUT);
-  pinMode(ledPin, OUTPUT);
+  // pinMode(ledPin, OUTPUT);
 
   PCICR = 0B00000001;
   PCIFR = 0B00000001;
@@ -17,7 +17,7 @@ void setup()
 
 void loop()
 {
-  digitalWrite(ledPin, state);
+  // digitalWrite(ledPin, state);
   Serial.println(state);
 }
 
